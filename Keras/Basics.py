@@ -37,8 +37,7 @@ RESHAPED = 784
 
 X_train = x_train.reshape(60000, RESHAPED)
 X_test = x_test.reshape(10000, RESHAPED)
-X_train = y_train.astype('float32')
-X_test = y_test.astype('float32')
+
 # normalize
 X_train = X_train/255
 X_test = X_test/255
@@ -182,3 +181,21 @@ verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
 
 res=akf.evalAll(X_test, Y_test, VERBOSE,history,model,"Regularizer")
 results.append(res)
+
+
+y_pred=model.predict_classes(X_test)
+
+import pandas as pd
+submission=pd.DataFrame(list(zip(range(60001,70001),y_pred)),columns=['id','label'])
+submission.to_csv('submission_dense.csv',index=False)
+
+
+
+
+
+
+
+
+
+
+
